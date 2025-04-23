@@ -16,7 +16,7 @@ st.title("🔮 Pronóstico Ventas 2025-2026 - TOPITOP")
 uploaded_file = st.file_uploader("Sube tu archivo Excel (.xlsx)", type="xlsx")
 if uploaded_file:
     data = pd.read_excel(uploaded_file, parse_dates=["Fecha"], index_col="Fecha")
-    data = data.asfreq("ME")
+    data = data.asfreq("M")
     
     # Seleccionar variable a pronosticar
     variable = st.radio(
