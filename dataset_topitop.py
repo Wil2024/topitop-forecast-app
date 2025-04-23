@@ -5,7 +5,7 @@ import pandas as pd
 np.random.seed(42)
 
 # 1. Generar fechas mensuales (2020-2024)
-dates = pd.date_range(start="2020-01-01", end="2024-12-31", freq="ME")  # 'ME' = Month End
+dates = pd.date_range(start="2020-01-01", end="2024-12-31", freq="M")  # 'ME' = Month End
 n_periods = len(dates)
 
 # 2. Componentes de la serie temporal (en Soles)
