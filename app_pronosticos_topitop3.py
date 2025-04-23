@@ -73,7 +73,7 @@ if uploaded_file:
         st.subheader("📊 Pronósticos vs Realidad (2024)")
         fig, ax = plt.subplots(figsize=(14, 6))
         ax.plot(train.index, train, label="Entrenamiento (2020-2023)", color="blue")
-        ax.plot(test.index, test, label="Real 2024", color="pink", linewidth=2)
+        ax.plot(test.index, test, label="Real 2024", color="brown", linewidth=2)
         for nombre in ["ARIMA", "SARIMA", "Holt-Winters"]:
             if nombre in st.session_state:
                 ax.plot(test.index, st.session_state[nombre]["forecast"], label=f"{nombre}", linestyle="--")
