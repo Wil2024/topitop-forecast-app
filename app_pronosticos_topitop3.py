@@ -10,7 +10,7 @@ from pandas.tseries.offsets import DateOffset
 
 # Configurar la página
 st.set_page_config(page_title="Pronóstico TOPITOP", layout="wide")
-st.title("🔮 Pronóstico 2025-2026 con Intervalos - TOPITOP")
+st.title("🔮 Pronóstico Ventas 2025-2026 - TOPITOP")
 
 # 1. Cargar datos desde Excel
 uploaded_file = st.file_uploader("Sube tu archivo Excel (.xlsx)", type="xlsx")
@@ -184,3 +184,16 @@ if uploaded_file:
 
 else:
     st.info("👋 Sube el archivo 'ventas_topitop.xlsx' para comenzar.")
+
+
+# Footer con autoría y derechos (agregar al final del script)
+st.markdown(
+    """
+    <div style='text-align: center; font-size: 12px; margin-top: 50px; color: #666;'>
+        ©️ 2024 Desarrollado por <b>Wilton Torvisco</b> | 
+        <a href='https://github.com/Wil2024' target='_blank'>GitHub</a> | 
+        Todos los derechos reservados.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
