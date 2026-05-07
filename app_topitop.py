@@ -156,4 +156,46 @@ if uploaded_file:
                     "Fecha": fc_p_fut.index.strftime('%Y-%m'),
                     "Pronostico_Base_Unds": prediccion_base,
                     "Escenario_Pesimista_Unds": escenario_pesimista,
-                    "Escenario_Optimista_U
+                    "Escenario_Optimista_Unds": escenario_optimista,
+                    "Stock_Seguridad_Unds": stock_seguridad,
+                    "Ingreso_Esperado_PEN": ingresos_esperados,
+                    "Capital_Stock_Seguridad_PEN": riesgo_capital_stock
+                })
+                st.dataframe(df_estrategico.style.format({
+                    "Pronostico_Base_Unds": "{:,.0f}",
+                    "Escenario_Pesimista_Unds": "{:,.0f}",
+                    "Escenario_Optimista_Unds": "{:,.0f}",
+                    "Stock_Seguridad_Unds": "{:,.0f}",
+                    "Ingreso_Esperado_PEN": "S/. {:,.2f}",
+                    "Capital_Stock_Seguridad_PEN": "S/. {:,.2f}"
+                }))
+                
+                # --- EXPORTACIÓN A EXCEL (.xlsx) ---
+                st.subheader("📥 Descarga de Plan Comercial (Formato Excel)")
+                buffer = io.BytesIO()
+                with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+                    df_estrategico.to_excel(writer, index=False, sheet_name='Plan_Produccion_Finanzas')
+                    worksheet = writer.sheets['Plan_Produccion_Finanzas']
+                    for i, col in enumerate(df_estrategico.columns):
+                        column_len = max(df_estrategico[col].astype(str).map(len).max(), len(col)) + 2
+                        worksheet.set_column(i, i, column_len)
+                        
+                st.download_button(
+                    label="📊 Descargar Plan de Producción y Finanzas (Excel)",
+                    data=buffer.getvalue(),
+                    file_name="plan_estrategico_abrigos_topitop.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+    except Exception as e:
+        st.error(f"Se encontró un error en la ejecución: {e}. Asegúrese de que el archivo contiene la columna de fechas correcta y seleccione 'Unidades'.")
+else:
+    st.info("👋 Suba su archivo histórico para iniciar el simulador multimodelo de alta dirección.")
+
+# Footer
+st.markdown(
+    """
+    <div style='text-align: center; font-size: 12px; margin-top: 50px; color: #666;'>
+    ©️ 2026 Taller MBA - Modelos de Forecasting y Simulación de Escenarios
+    </div>
+    """, unsafe_allow_html=True
+)
